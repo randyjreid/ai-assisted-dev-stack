@@ -114,8 +114,8 @@ The following documents will be expanded as the stack evolves:
 
 ### Phase 0 – Repo Scaffolding (Current)
 - [x] Create initial directory and documentation structure  
-- [ ] Add README and base files  
-- [ ] Add Dependabot configuration  
+- [x] Add README and base files  
+- [x] Add Dependabot configuration  
 
 ### Phase 1 – Core Stack Documentation
 - [ ] WSL setup  
