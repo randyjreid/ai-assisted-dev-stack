@@ -1,0 +1,53 @@
+version: 2
+
+updates:
+  # 1) Python tools & examples (pip)
+  #
+  # Covers any requirements.txt / pyproject.toml you add
+  # to the root or docs/examples as the stack evolves.
+  - package-ecosystem: "pip"
+    directory: "/"          # Look for Python deps in the repo root
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "05:00"
+      timezone: "America/New_York"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "dependabot"
+
+  # 2) GitHub Actions workflows
+  #
+  # Keeps CI and automation up to date (once you add workflows
+  # under .github/workflows/).
+  - package-ecosystem: "github-actions"
+    directory: "/"          # .github/workflows is always under root
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "05:30"
+      timezone: "America/New_York"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "dependabot"
+      - "ci"
+
+  # 3) (Optional / Future) Node-based docs or tools
+  #
+  # Uncomment and adjust if you later add a JS-based site
+  # or tooling with package.json (e.g., /website, /docs/site).
+  #
+  # - package-ecosystem: "npm"
+  #   directory: "/website"
+  #   schedule:
+  #     interval: "weekly"
+  #     day: "sunday"
+  #     time: "06:00"
+  #     timezone: "America/New_York"
+  #   open-pull-requests-limit: 5
+  #   labels:
+  #     - "dependencies"
+  #     - "dependabot"
+  #     - "frontend"
