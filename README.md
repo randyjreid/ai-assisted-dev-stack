@@ -102,7 +102,7 @@ Documentation for installation and usage will be added in:
 The following documents will be expanded as the stack evolves:
 
 - [x] **overview.md** – Purpose, philosophy, system architecture  
-- [ ] **install.md** – Step-by-step installation instructions  
+- [x] **install.md** – Step-by-step installation instructions  
 - [x] **components.md** – Detailed breakdown of each tool  
 - [ ] **workflows.md** – Daily usage and development practices  
 - [ ] **update-log.md** – Version history of the stack  
