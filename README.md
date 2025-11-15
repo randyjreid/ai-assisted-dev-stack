@@ -5,6 +5,8 @@ This repository documents a reproducible setup for building software using a mul
 
 The goal is to maintain a stable, well-documented baseline that I can rebuild anytime, extend as new tools arrive, and share publicly to help others adopt AI-augmented development workflows.
 
+A dedicated [Workflows guide](docs/workflows.md) now explains how ideas move from initial prompts through merged changes and how each AI tool supports that flow.
+
 ---
 
 ## ⚡️ Why This Exists
@@ -89,11 +91,11 @@ git clone https://github.com/randyjreid/ai-assisted-dev-stack.git
 cd ai-assisted-dev-stack
 ```
 
-Documentation for installation and usage will be added in:
+Documentation for installation and usage lives in:
 
-- [ ] `docs/overview.md`  
-- [ ] `docs/install.md`  
-- [ ] `docs/workflows.md`
+- [x] `docs/overview.md`  
+- [x] `docs/install.md`  
+- [x] `docs/workflows.md`
 
 ---
 
@@ -104,9 +106,11 @@ The following documents will be expanded as the stack evolves:
 - [x] **overview.md** – Purpose, philosophy, system architecture  
 - [x] **install.md** – Step-by-step installation instructions  
 - [x] **components.md** – Detailed breakdown of each tool  
-- [ ] **workflows.md** – Daily usage and development practices  
+- [x] **workflows.md** – Lifecycle guidance from idea to merged change with links to detailed playbooks  
 - [ ] **update-log.md** – Version history of the stack  
 - [ ] **roadmap.md** – Planned enhancements  
+
+Detailed workflow playbooks will live under `docs/workflows/` as each stage is expanded.
 
 ---
 
