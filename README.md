@@ -1,4 +1,4 @@
-# AI-Assisted Dev Stack
+# AI Assisted Dev Stack
 
 A complete, evolving development environment for modern software engineering that uses AI assistance.
 This repository documents a reproducible setup for building software using multiple LLM tools that integrate Claude Code CLI, OpenAI Codex CLI, GitHub Copilot, GitHub CLI, WSL Ubuntu, and Visual Studio Code.
@@ -49,11 +49,8 @@ ai-assisted-dev-stack/
 │   ├── update-log.md
 │   └── roadmap.md
 │
-├── scripts/            # Setup, verification, and automation scripts (future phases)
-│   ├── bootstrap_wsl.sh
-│   ├── install_core_tools.sh
-│   ├── install_ai_tools.sh
-│   └── verify_stack.sh
+├── scripts/            # Setup, verification, and automation scripts (planned for a future phase)
+│   └── README.md
 │
 ├── .vscode/            # Recommended VS Code extensions and settings
 │   ├── extensions.json
@@ -104,7 +101,7 @@ Documentation for installation and usage lives in:
 The following documents will be expanded as the stack evolves:
 
 - [x] **overview.md** – Purpose, philosophy, system architecture  
-- [x] **install.md** – Step-by-step installation instructions  
+- [x] **install.md** – Detailed installation instructions  
 - [x] **components.md** – Detailed breakdown of each tool  
 - [x] **workflows.md** – Lifecycle guidance from idea to merged change with links to detailed playbooks  
 - [ ] **update-log.md** – Version history of the stack  
@@ -136,27 +133,27 @@ Detailed workflow playbooks will live under `docs/workflows/` as each stage is e
 - [ ] Stack verification script  
 
 ### Phase 3 – Workflow Documentation
-- [ ] Branching strategy  
-- [ ] AI-assisted feature implementation  
-- [ ] AI-driven PR review workflows  
+- [ ] Branching strategy
+- [ ] Feature implementation with AI assistance
+- [ ] Pull request review workflows using AI
 - [ ] Testing and validation  
 
-### Phase 4 – Public Write-Ups
+### Phase 4 – Public Documentation
 - [ ] Publish LinkedIn article  
 - [ ] Publish Medium technical deep-dive  
 - [ ] Invite community feedback  
 
 ### Phase 5 – Evolution
-- [ ] Local LLM support (Ollama, LM Studio)  
-- [ ] Agent workflows  
-- [ ] Self-hosted GitHub Actions runners  
-- [ ] Devcontainer-based environments  
+- [ ] Local LLM support (Ollama, LM Studio)
+- [ ] Agent workflows
+- [ ] Self hosted GitHub Actions runners
+- [ ] Devcontainer based environments  
 
 ---
 
 ## 🤝 Contributing
 
-Suggestions, improvements, and ideas are welcome as AI-assisted development continues to evolve.  
+Suggestions, improvements, and ideas are welcome as development with AI assistance continues to evolve.  
 Issues and pull requests can be opened at any time.
 
 ---

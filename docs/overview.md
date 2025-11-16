@@ -26,7 +26,7 @@ Windows 10/11
     ├── AI tooling:
     │     ├── GitHub Copilot
     │     ├── Claude Code CLI
-    │     └── OpenAI / Codex CLI
+    │     └── OpenAI Codex CLI
     ├── Visual Studio Code (WSL integrated)
     └── Future automation and scripts
 ```
