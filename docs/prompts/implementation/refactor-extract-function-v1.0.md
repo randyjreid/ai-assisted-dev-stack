@@ -7,7 +7,7 @@ context_requirements:
   - File excerpts showing the logic to extract
   - Related tests or documentation sections
   - Issue or PR links describing why the refactor is needed
-token_budget_notes: Keep total prompt under 90k tokens. Summarize large files instead of pasting entire modules; reference commit IDs for full diffs.
+token_budget_notes: Keep total prompt focused and relevant. For Sonnet 4.5, aim for under 100k tokens for best responsiveness. Summarize large files instead of pasting entire modules; reference commit IDs for full diffs.
 version_history:
   - v1.0 (2025-02-14): Initial template for extraction refactors
 ---
@@ -38,6 +38,8 @@ Constraints:
 - Preserve public APIs unless explicitly stated
 - Do not change unrelated functionality
 - If assumptions are unclear, pause and ask for clarification
+- Do not include credentials, API keys, or sensitive data in prompts or outputs
+- Sanitize any logs or error messages before inclusion
 
 Validation:
 - Report commands needed to run unit tests and lint
@@ -79,6 +81,8 @@ Constraints:
 - Only edit the listed files
 - Keep processPayment() public API unchanged
 - Surface any assumptions before modifying business logic
+- Do not include credentials, API keys, or sensitive data in prompts or outputs
+- Sanitize any logs or error messages before inclusion
 
 Validation:
 - Run npm test -- billing.test.js

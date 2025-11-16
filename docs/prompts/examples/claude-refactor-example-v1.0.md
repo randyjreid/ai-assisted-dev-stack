@@ -46,7 +46,7 @@ Validation:
 - Claude created src/validators/payment.js with the extracted logic
 - processPayment() now handles the helper response
 - Tests were untouched but still pass; developer reran npm test locally
-- Prompt log entry archived at `docs/workflows/prompts/logs/2025-02-14-claude-refactor.md`
+- Prompt log entry archived in GitHub issue #128 comments (or optionally in `docs/prompts/logs/2025-02-14-claude-refactor.md` for long-term reference)
 
 ## Lessons Learned
 - Including test commands in the validation block reminded Claude to keep them intact
