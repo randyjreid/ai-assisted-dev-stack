@@ -40,28 +40,57 @@ Prompt discipline keeps multiple AI tools aligned with the same intent, context,
 Prompting is treated like any other engineering workflow: capture the problem, gather context, run a structured process, and keep the results traceable. The aim is to keep Claude Code, Codex, and Copilot focused on the same objectives so the developer spends time reviewing and integrating rather than reinterpreting conflicting AI output. Disciplined prompting makes the stack faster because prompts become reusable building blocks, and safer because every interaction links back to the issue, branch, or documentation that justified the work.
 
 ### 2.2 Principles of Prompting
-Clarity is paramount. Each request specifies a single outcome, the files in scope, the acceptance criteria, and any relevant constraints or safety instructions. Ambiguous requests such as "clean up this module" are replaced with concrete statements like "extract the validation logic from `processPayment()` in `src/billing.js` into a new `validatePayment()` function, preserve all existing test coverage, and update the inline documentation." To ensure reproducibility despite the non-deterministic nature of AI models, prompts include branch names, commit hashes when necessary, and references to previous outputs so the same scenario can be re-run later without guesswork.
+Clarity is paramount. Each request specifies a single outcome, the files in scope, the acceptance criteria, and any relevant constraints or safety instructions. Ambiguous requests such as "clean up this module" are replaced with concrete statements like "extract the validation logic from `processPayment()` in `src/billing.js` into a new `validatePayment()` function, preserve all existing test coverage, and update the inline documentation." To ensure reproducibility despite the non-deterministic nature of AI models, prompts include branch names, commit hashes when necessary, and references to previous outputs. This allows the same scenario to be re-run with consistent context, even though the model's responses may still vary due to non-determinism.
 
 Transparency and auditability require prompts to cite their source. If a bug report triggered the work, the prompt links to that issue and explains the impact. When documentation informs the change, the prompt states which sections should be considered. Every significant prompt is stored in an issue comment, pull request discussion, or the prompt log (defined below) so reviewers can see how the AI was directed. Safety guardrails are embedded throughout: prompts explicitly list the files the AI may touch, discourage speculation, and remind the model to surface uncertainties rather than inventing answers. They also describe how the output will be validated, such as running a particular test suite or comparing behavior against the current design.
 
 Verifiable output is the final principle. Prompts instruct the model to produce diffs, test updates, or step-by-step reasoning so humans can confirm the work. When a prompt requires analysis rather than code, it asks for structured findings and follow-up actions instead of generic commentary. Developers compare potential prompts before sending them, choosing the version that is easiest to verify later and noting poor examples in the playbook so the team can avoid them.
 
 ### 2.3 Shared Context Strategy
-High-quality prompts start with curated context. Before invoking an AI tool, the developer gathers the issue or roadmap entry, links to the relevant documentation, important file excerpts, architecture diagrams, and any failing test logs. This context is summarized in the prompt itself and stored alongside the prompt text so other tools see the same information.
+High-quality prompts start with curated context. Before invoking an AI tool, the developer gathers the issue or roadmap entry, links to the relevant documentation, important file excerpts, architecture diagrams, and any failing test logs. This context is summarized in the prompt itself and stored alongside the prompt text for documentation and for reuse when manually constructing prompts for other tools.
 
 Context persists across sessions through several mechanisms:
 - Saving reusable blocks in the playbook for common subsystems
 - Reusing markdown snippets that describe architectural components
 - Tagging prompt logs with the files, issues, and branches involved
 
-When prompt history becomes tangled or conflicting instructions appear, the developer resets the session and rebuilds the context from the latest source of truth to prevent stale assumptions or partial histories from steering later prompts. Resetting is also required in these situations:
+When prompt history becomes tangled or conflicting instructions appear, the developer resets the session and rebuilds the context from the latest source of truth to prevent stale assumptions or partial histories from steering later prompts. Consider resetting in these situations:
 - After large refactors that change file structure or module boundaries
 - When switching between unrelated tasks
 - When the AI output shows signs of drift (for example, referencing files that were never mentioned or making assumptions not grounded in the provided context)
 
 **Prompt logs** are the primary archival mechanism for prompts and their outputs. They are stored as comments in GitHub issues or pull request discussions, tagged with issue numbers, branch names, and the files affected. This makes it easy for reviewers and future contributors to understand how AI-generated changes were produced. Prompt logs differ from prompt libraries (reusable templates) in that logs capture the full history of a specific interaction, while libraries contain generalized patterns for common tasks.
 
+**Prompt library** is the collection of reusable prompt templates organized in `docs/prompts/`. The library is structured by workflow stage and purpose:
+
+```
+docs/prompts/
+  implementation/
+    refactor-extract-function-v1.0.md
+    add-api-endpoint-v1.1.md
+  review/
+    code-review-checklist-v1.0.md
+    security-review-v1.0.md
+  analysis/
+    technical-debt-assessment-v1.0.md
+```
+
+Each prompt template is a Markdown file with a simple header block containing the version, last updated date, and a brief description, followed by the prompt template with placeholders for project-specific details. Prompts are named descriptively with semantic versions (v1.0, v1.1, v2.0) in the filename. Git history provides the full evolution, while the version number allows teams to reference specific prompt iterations and roll back if needed.
+
 Treating context as a first-class artifact makes it easier to share reasoning with reviewers and keeps each AI interaction grounded in the latest information.
+
+#### 2.3.1 Managing Context Window Limits
+
+Context windows are large but finite. Claude Code's context window holds hundreds of thousands of tokens (roughly 4 characters per token), which accommodates substantial context, but developers still need to prioritize when working with large repositories or complex changes.
+
+When the desired context exceeds practical limits:
+
+- **Prioritize recent and relevant changes**: Include files that were recently modified or are directly related to the current task. Older or tangential code can be summarized or omitted.
+- **Include only necessary code blocks**: Instead of pasting entire files, include only the functions, classes, or sections that the AI needs to see. Add a brief comment describing the file's overall purpose.
+- **Break large tasks into smaller prompts**: If a refactoring touches dozens of files, handle it incrementally. Prompt for a subset of changes, validate, then move to the next batch.
+- **Summarize historical context**: If earlier work informs the current task, include a summary rather than full conversation history. For example: "In PR #123, we extracted validators to a separate module. This task extends that pattern to error handlers."
+
+Testing prompt length before committing to a long interaction helps avoid mid-task context overflows. If a prompt seems too large, trim less critical details or split the work across multiple focused prompts.
 
 ### 2.4 Claude Code Prompt Patterns
 Claude Code handles structured, repository-aware tasks, so prompts follow a consistent template:
@@ -71,7 +100,7 @@ Claude Code handles structured, repository-aware tasks, so prompts follow a cons
 4. **Requirements and acceptance criteria**: What must change and which tests or commands prove success
 5. **Constraints and safety directions**: What the model must not do
 
-Multi-directory searches and coordinated multi-file edits rely on that structure to limit scope while still giving Claude access to relevant information. Implementation tasks spell out function-level behavior, input and output expectations, and testing hooks. Documentation prompts describe tone, link targets, and any cross-references to update. Refactoring prompts emphasize invariants to preserve and often require the model to describe the planned sequence before applying changes. Each prompt ends with explicit instructions about patch formatting and human review so changes enter the Git workflow cleanly.
+Coordinated multi-file edits spanning different directories rely on that structure to limit scope while still giving Claude access to relevant information. Implementation tasks spell out function-level behavior, input and output expectations, and testing hooks. Documentation prompts describe tone, link targets, and any cross-references to update. Refactoring prompts emphasize invariants to preserve and often require the model to describe the planned sequence before applying changes. Each prompt ends with explicit instructions about patch formatting and human review so changes enter the Git workflow cleanly.
 
 **Example: Strong Claude Code prompt for refactoring**
 ```
@@ -114,10 +143,107 @@ Codex complements Claude by acting as an independent reviewer, strategist, or an
 
 The framing is deliberate. Prompts tell Codex to "act as a reviewer" or "provide a second opinion" so it stays in analyst mode. Codex is chosen when a second viewpoint or validation is needed; Claude remains the tool for scoped implementations. Switching tools unnecessarily introduces overlap, so the workflow calls for Codex only when its perspective adds value beyond what Claude and Copilot already produced.
 
+**Example: Codex pull request review prompt**
+```
+Context: Pull Request #156 - Refactor authentication middleware
+Issue: https://github.com/org/repo/issues/142
+Branch: feature/auth-middleware-refactor
+PR: https://github.com/org/repo/pull/156
+
+Summary of changes:
+- Extracted authentication logic from route handlers into middleware
+- Added JWT token validation with expiry checks
+- Implemented role-based access control (RBAC) helpers
+- Updated 12 route handlers to use new middleware
+
+Files changed:
+- src/middleware/auth.js (new, 145 lines)
+- src/middleware/rbac.js (new, 67 lines)
+- src/routes/*.js (12 files modified)
+- tests/middleware/auth.test.js (new, 89 lines)
+
+Test results:
+- Unit tests: 47/47 passing
+- Integration tests: 12/12 passing
+- Code coverage: 94% (up from 78%)
+
+Your task:
+Act as an independent code reviewer. Analyze this pull request for:
+
+1. Security concerns:
+   - Are JWT tokens validated correctly?
+   - Are there timing attack vulnerabilities in token comparison?
+   - Does RBAC properly prevent privilege escalation?
+   - Are there any injection risks in the authentication flow?
+
+2. Design quality:
+   - Is the middleware pattern applied consistently?
+   - Are there better alternatives to the current RBAC approach?
+   - Does this refactoring introduce coupling or maintenance risks?
+
+3. Missing coverage:
+   - What edge cases might not be tested?
+   - Are there failure modes that need additional instrumentation?
+   - Should there be rate limiting or brute force protection?
+
+4. Documentation and clarity:
+   - Is the authentication flow clear to future maintainers?
+   - Are error messages actionable for debugging?
+
+Provide:
+- Specific line-level concerns with file:line references
+- Severity rating (critical/important/minor) for each issue
+- Concrete suggestions for improvement
+- Any questions about design decisions that need clarification
+
+Do not provide implementation code. Focus on analysis and actionable feedback.
+```
+
+This example demonstrates how Codex prompts frame the request as analysis rather than implementation, provide full context including test results, and specify the exact type of feedback needed.
+
 ### 2.6 Copilot Interaction Model
 Copilot thrives in the inner loop. Developers use it for inline suggestions, quick scaffolding, micro-refactors, and lightweight test stubs. These suggestions are treated as drafts: if a Copilot snippet becomes part of a broader change, the developer annotates the commit or prompt log so future readers understand the origin. This workflow reserves complex multi-file changes and architectural decisions for Claude Code, where structured prompts provide better safety and traceability.
 
 Copilot and the broader prompting flow stay in sync by capturing context in editor comments or TODOs before switching to Claude or Codex. When Copilot provides a useful snippet, that snippet and the surrounding reasoning become part of the prompt history so the rest of the toolchain understands the current direction. If Copilot's suggestions stray from the plan or introduce noise, the developer disables it for that file and switches back to structured prompting until the work stabilizes. Copilot becomes the preferred option when speed matters more than structure, such as writing small utilities or filling in repetitive boilerplate.
+
+**Example: Handoff from Copilot to Claude Code**
+
+During implementation, Copilot suggests a helper function for data validation:
+
+```javascript
+// src/utils/validators.js
+// AI-suggested: helper for sanitizing user input (Copilot, commit a7f3c2e)
+function sanitizeInput(input) {
+  return input.trim().replace(/[<>]/g, '');
+}
+```
+
+The developer adds the comment noting the AI origin and commits it. Later, when creating a Claude Code prompt to expand the validation system, they reference this work:
+
+```
+Branch: feature/input-validation
+Commit: a7f3c2e
+Goal: Expand input validation system across all API endpoints
+
+Context:
+In commit a7f3c2e, Copilot suggested a basic sanitizeInput() helper in
+src/utils/validators.js that handles HTML tag removal. This task extends
+that pattern into a comprehensive validation framework.
+
+Files in scope:
+- src/utils/validators.js (expand existing)
+- src/middleware/validation.js (create)
+- src/api/routes/*.js (update to use new validators)
+
+Requirements:
+1. Extend sanitizeInput() to handle SQL injection patterns and script tags
+2. Create validateEmail(), validateURL(), validatePhone() functions
+3. Build a validation middleware that applies sanitization before route handlers
+4. Update all POST/PUT routes to use the validation middleware
+...
+```
+
+This approach preserves the Copilot contribution in the commit history and integrates it into the structured prompt, ensuring continuity across tools.
 
 ### 2.7 Prompt Lifecycle
 Prompts move through the same lifecycle as code changes:
@@ -130,7 +256,7 @@ Prompts move through the same lifecycle as code changes:
 
 Maintaining this lifecycle keeps prompts auditable. Reviewers can trace a commit back to the prompt that produced it, see the context that was supplied, and understand why a particular approach was chosen. When prompts fail, the archive shows what went wrong and informs better instructions next time.
 
-**Prompt versioning**: As workflows evolve, successful prompts are versioned in the prompt library with timestamps and notes about when and why they were updated. This allows teams to roll back to earlier prompt patterns if newer versions introduce problems, and it provides a clear history of how prompting practices have improved over time.
+**Prompt versioning**: As workflows evolve, successful prompts are versioned in the prompt library with timestamps and notes about when and why they were updated. Versions are tracked through semantic version numbers in the filename (for example, `refactor-extract-function-v1.0.md` becomes `refactor-extract-function-v1.1.md` for minor improvements or `v2.0.md` for major changes). Each prompt file includes a header block with the version number, last updated date, author, and change notes. Git history provides the complete evolution, while the explicit version allows teams to reference specific prompt iterations (for example, "use the v1.2 code review prompt") and roll back if newer versions introduce problems. This provides a clear history of how prompting practices have improved over time.
 
 **Performance considerations**: Prompts should balance detail with efficiency. Extremely long prompts can increase response latency and API costs without proportional improvements in output quality. Developers are encouraged to test prompts in scratch branches first, compare response times and accuracy, and refine prompts to include only the context necessary for the task at hand.
 
