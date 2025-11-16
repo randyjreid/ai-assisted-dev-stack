@@ -4,14 +4,31 @@ This document describes the complete lifecycle for the AI Assisted Dev Stack, fr
 
 ## 1. Workflow Overview
 
-### Purpose of these workflows
-Explain how the workflow set keeps work predictable, auditable, and aligned with stack conventions while leaving room for experimentation.
+### 1.1 Purpose of These Workflows
+The workflow system exists to make every change predictable, auditable, and aligned with the stack conventions while still leaving space for experimentation. Predictability comes from defining explicit entry and exit criteria for each stage so work follows repeatable patterns and the team knows what “ready” looks like before moving forward. Auditability is achieved by keeping a clear chain of evidence: prompts point to issues, issues point to branches, branches point to pull requests, and decisions are captured in review threads, documentation, and workflow logs. Alignment with stack conventions means branching strategies tie back to roadmap items, pull request templates enforce review expectations, and documentation checkpoints cover the overview, components, install, and workflow guides whenever a change modifies behavior or process.
 
-### High level lifecycle
-Describe the sequence that links prompting, planning, design, implementation, testing, review, documentation, and merge activities.
+These workflows also provide controlled spaces for experimentation. Dedicated branches or sandboxes allow new prompt strategies, tool combinations, or automation scripts to be tested without risking the main branch. Successful experiments feed back into the standard workflow so good ideas become part of the baseline instead of one off wins. Each workflow stage is explicitly tied to the roadmap phases: Phase 0 established the scaffolding and baseline documentation, Phase 1 focuses on codifying the core stack documentation and workflow definitions, and later phases will introduce automation scripts, deeper workflow playbooks, public documentation, and an evolving toolchain.
 
-### Role of tools across the lifecycle
-Summarize when Copilot, Claude Code, Codex, GitHub CLI, and other components are most helpful and how they share context across stages.
+### 1.2 High Level Lifecycle
+The lifecycle begins with prompting and intent, where the goal is to capture the problem statement and the context required by AI tools. Ideas, issues, and user feedback act as the primary inputs, and the outputs are refined goals, initial prompts, and shared context that align with roadmap priorities. Planning and requirements then translate that intent into actionable work by producing task breakdowns, requirement updates, and acceptance criteria. This stage consumes prompting outcomes and existing documentation, and it can loop with the prompting stage when clarification is needed.
+
+Design and architecture follows, defining the technical approach, interfaces, and constraints. It relies on the plans and requirements and produces design notes, diagrams, and decision records that guide the next stages. Implementation uses those artifacts to build the change in a branch through incremental commits, generating code updates, local tests, and status reports. Testing validates that work by running unit, integration, and functional checks, turning code changes and test plans into test results, bug reports, and readiness signals. Testing may run in parallel with final implementation touches when quick fixes are needed.
+
+Review ensures the change meets quality expectations through a mix of AI assisted and human analysis. Pull requests, diffs, test evidence, and documentation updates feed into this stage, which produces approvals, review notes, and follow up tasks. Documentation updates ensure the overview, components, install, workflows, and playbooks stay synchronized with the code. Once documentation aligns with the latest implementation and review feedback, merge and post merge validation integrate the change into the main branch, creating merged commits, tags, and validation records. Immediate sanity checks happen here, and any issues can trigger new planning or bug work.
+
+The cycle closes with continuous improvement. Retro notes, validation outcomes, and roadmap signals are reviewed to refine prompts, adjust workflows, and plan tool upgrades. Insights captured in this phase flow directly into the next prompting and planning effort, so the lifecycle is both sequential and iterative. Each stage depends on the previous stage’s outputs, yet feedback loops allow planning, design, implementation, and documentation to run in parallel when a change requires rapid iteration. These handoffs align with the roadmap checkpoints so each phase delivers a measurable outcome before the next begins.
+
+### 1.3 Role of Tools Across the Lifecycle
+Git and GitHub serve as the system of record across every stage. They host branches, commits, pull requests, issues, and roadmap entries, and they provide the links that tie documentation, prompts, and design notes back to a single history. GitHub CLI builds on that foundation by handling branch creation, status checks, pull request operations, and reviews directly from the terminal. It exposes the same data as the GitHub web interface, which makes it easy to share context with AI tools through commands and outputs, while leaving the IDE free for editing and testing.
+
+Visual Studio Code is the integration point for design notes, implementation work, testing, and documentation updates. It houses the local files, WSL terminals, and extensions that connect Copilot, Claude, and Codex into a single workspace, but it is not the authoritative history. GitHub Copilot focuses on the inner loop during implementation, testing, and lightweight documentation edits by offering inline suggestions based on the files that are currently open. It is best suited for small changes, patterns, and quick scaffolding rather than repo wide transformations.
+
+Claude Code CLI provides structured, repository aware assistance for planning refinement, design exploration, implementation tasks, documentation updates, and review support. It consumes the full repository context and prompt history, making it ideal for coordinated edits that touch multiple files, though every change still goes through human review before merge. OpenAI Codex CLI offers a complementary perspective during planning, validation, review, and continuous improvement. It is commonly used for second opinions, alternative solutions, or root cause analysis, and it works best when prompts clearly describe the desired outcome and reference existing documentation.
+
+### 1.4 Inputs and Outputs of the Workflow System
+The workflow system consumes a steady stream of inputs: ideas from users or stakeholders, roadmap entries, bug reports, requirements, existing documentation, design artifacts, tool diagnostics, retrospective notes, and prompt libraries. Each input feeds into the lifecycle stage where it adds the most value. The outputs are merged code and tests that satisfy the requirements, updated documentation across all guides and playbooks, roadmap adjustments, version history entries, and refined workflow practices.
+
+Section 2 onward dives deeper into each lifecycle stage and links to the related playbooks that explain the day to day execution. The inputs and outputs defined here describe how information flows between stages, tools, and documents, ensuring the later sections have a clear set of boundaries and expectations to build on.
 
 ## 2. Prompting and Interaction Patterns
 
