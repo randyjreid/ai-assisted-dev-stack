@@ -1,5 +1,7 @@
 # Prompting Playbook
 
+[← Back to Workflows Overview](../workflows.md)
+
 This playbook captures how prompts, shared context, and interaction patterns keep the AI tools aligned with project goals throughout a task.
 
 ## Goals
@@ -13,3 +15,9 @@ Provide the sequence for preparing a prompt, validating AI responses, and iterat
 
 ## How AI Tools Are Used
 Describe how Claude Code, Codex, and Copilot each consume prompts, including when to switch tools or combine their strengths during an interaction.
+
+---
+
+## Related Playbooks
+- [Planning and Requirements Workflow](planning-and-requirements.md)
+- [Implementation and Testing Workflow](implementation-and-testing.md)
