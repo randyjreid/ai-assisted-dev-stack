@@ -140,7 +140,7 @@ Detailed workflow playbooks will live under `docs/workflows/` as each stage is e
 
 ### Phase 4 – Public Documentation
 - [ ] Publish LinkedIn article  
-- [ ] Publish Medium technical deep-dive  
+- [ ] Publish Medium technical deep dive  
 - [ ] Invite community feedback  
 
 ### Phase 5 – Evolution
