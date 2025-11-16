@@ -8,6 +8,10 @@ context_requirements:
   - Files src/billing.js, src/validators/payment.js, tests/billing.test.js
   - Prompt log reference #128-02
 token_budget_notes: 30k tokens (small snippet). The real prompt stayed under 50k.
+related_prompts:
+  - refactor-extract-function-v1.0.md
+  - code-review-claude-v1.0.md
+  - build-context-block-v1.0.md
 version_history:
   - v1.0 (2025-02-14): Initial example
 ---

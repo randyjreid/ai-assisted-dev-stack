@@ -8,6 +8,10 @@ context_requirements:
   - Prompt log references for continuity
   - Planned Claude task
 token_budget_notes: Context block under 5k tokens; Claude prompt under 60k.
+related_prompts:
+  - build-context-block-v1.0.md
+  - add-feature-boilerplate-v1.0.md
+  - refactor-extract-function-v1.0.md
 version_history:
   - v1.0 (2025-02-14): Initial handoff example
 ---

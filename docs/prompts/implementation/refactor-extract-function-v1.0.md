@@ -8,6 +8,11 @@ context_requirements:
   - Related tests or documentation sections
   - Issue or PR links describing why the refactor is needed
 token_budget_notes: Keep total prompt focused and relevant. For Sonnet 4.5, aim for under 100k tokens for best responsiveness. Summarize large files instead of pasting entire modules; reference commit IDs for full diffs.
+related_prompts:
+  - add-feature-boilerplate-v1.0.md
+  - code-review-claude-v1.0.md
+  - partial-failure-followup-v1.0.md
+  - test-failure-analysis-v1.0.md
 version_history:
   - v1.0 (2025-02-14): Initial template for extraction refactors
 ---

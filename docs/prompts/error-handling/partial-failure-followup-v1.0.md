@@ -7,6 +7,11 @@ context_requirements:
   - List of completed vs pending tasks
   - Updated file list or diffs
 token_budget_notes: Keep under 40k tokens; focus on the unresolved portions.
+related_prompts:
+  - diagnose-drift-or-hallucination-v1.0.md
+  - request-self-correction-v1.0.md
+  - code-review-claude-v1.0.md
+  - refactor-extract-function-v1.0.md
 version_history:
   - v1.0 (2025-02-14): Initial follow-up template
 ---

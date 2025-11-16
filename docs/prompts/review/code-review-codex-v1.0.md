@@ -8,6 +8,10 @@ context_requirements:
   - Tests executed and outstanding concerns
   - Any architectural notes relevant to the change
 token_budget_notes: Keep total prompt under 12k tokens. Provide targeted diffs rather than entire files.
+related_prompts:
+  - code-review-claude-v1.0.md
+  - partial-failure-followup-v1.0.md
+  - diagnose-drift-or-hallucination-v1.0.md
 version_history:
   - v1.0 (2025-02-14): Initial Codex review template
 ---

@@ -7,6 +7,10 @@ context_requirements:
   - Optional diff stats for each commit
   - High-level description of how commits relate to the task
 token_budget_notes: Keep each commit summary under 400 tokens; limit to the last 5 relevant commits.
+related_prompts:
+  - build-context-block-v1.0.md
+  - prepare-large-file-context-v1.0.md
+  - code-review-claude-v1.0.md
 version_history:
   - v1.0 (2025-02-14): Initial commit summary template
 ---

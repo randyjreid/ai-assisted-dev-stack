@@ -7,6 +7,10 @@ context_requirements:
   - Sections or line ranges relevant to the task
   - Optional AST or outline if available
 token_budget_notes: Target 3k tokens maximum for the summary; rely on headings, bullet lists, and references rather than full code dumps.
+related_prompts:
+  - build-context-block-v1.0.md
+  - summarize-commits-v1.0.md
+  - refactor-extract-function-v1.0.md
 version_history:
   - v1.0 (2025-02-14): Initial large-file context template
 ---

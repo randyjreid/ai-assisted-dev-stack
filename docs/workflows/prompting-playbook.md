@@ -38,6 +38,20 @@ Context can be reused when the task is still active and the code base has not dr
 
 **Token guidance.** Claude Code supports large contexts (200k tokens for Sonnet 4.5 as of January 2025). For best responsiveness, prioritize relevance and recency over exhaustiveness. Modern OpenAI models support 128k+ tokens; consult current model documentation for specific limits. Trim context by summarizing large files, pointing to commit hashes instead of pasting entire diffs, or delegating rarely needed details to follow-up prompts. See Section 2.3.1 for detailed context prioritization techniques.
 
+#### 2.3.1 Managing Context Window Limits
+
+Context windows are large but finite. Claude Code's context window holds hundreds of thousands of tokens (200k for Sonnet 4.5 as of January 2025, roughly 4 characters per token), which accommodates substantial context, but developers still need to prioritize when working with large repositories or complex changes.
+
+When the desired context exceeds practical limits:
+
+- **Prioritize recent and relevant changes**: Include files that were recently modified or are directly related to the current task. Older or tangential code can be summarized or omitted.
+- **Include only necessary code blocks**: Instead of pasting entire files, include only the functions, classes, or sections that the AI needs to see. Add a brief comment describing the file's overall purpose.
+- **Break large tasks into smaller prompts**: If a refactoring touches dozens of files, handle it incrementally. Prompt for a subset of changes, validate, then move to the next batch.
+- **Summarize historical context**: If earlier work informs the current task, include a summary rather than full conversation history. For example: "In PR #123, we extracted validators to a separate module. This task extends that pattern to error handlers."
+- **Use context templates**: Leverage `prepare-large-file-context-v1.0.md` to summarize files exceeding token budgets, `build-context-block-v1.0.md` to assemble reusable context fragments, and `summarize-commits-v1.0.md` to capture recent history without pasting full diffs.
+
+Testing prompt length before committing to a long interaction helps avoid mid-task context overflows. If a prompt seems too large, trim less critical details or split the work across multiple focused prompts. The goal is relevance and focus, not exhaustiveness.
+
 ### 2.4 Claude Code Prompt Patterns
 Claude Code excels at structured, multi file changes. Every prompt follows this template:
 1. **Task summary** – One sentence describing the outcome.
@@ -114,6 +128,8 @@ This framing keeps Codex in reviewer mode and prevents it from attempting direct
 
 ### 2.6 Copilot Interaction Model
 Copilot supports the inner loop: inline suggestions, scaffolding, and lightweight refactors in the active editor. Use Copilot to propose small functions, test stubs, or repetitive boilerplate. When a Copilot snippet becomes part of a broader change, note its origin in the commit message or prompt log so reviewers know the context that led to the implementation. Switch back to Claude or Codex when a change spans multiple files, needs strict constraints, or requires analysis beyond the current buffer. If Copilot begins offering irrelevant suggestions, temporarily disable it for that file and focus on structured prompting instead.
+
+For a complete example of handing off Copilot work to Claude Code, see `docs/prompts/examples/copilot-to-claude-context-v1.0.md`.
 
 ### 2.7 Prompt Lifecycle
 Prompts follow a consistent lifecycle:

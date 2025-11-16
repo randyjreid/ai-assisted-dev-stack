@@ -8,6 +8,11 @@ context_requirements:
   - Relevant file excerpts
   - Current branch/commit information
 token_budget_notes: Aim for 80k tokens or less. Include only the portion of logs or stack traces necessary for diagnosis.
+related_prompts:
+  - test-failure-analysis-v1.0.md
+  - partial-failure-followup-v1.0.md
+  - add-feature-boilerplate-v1.0.md
+  - refactor-extract-function-v1.0.md
 version_history:
   - v1.0 (2025-02-14): Initial bug analysis template
 ---

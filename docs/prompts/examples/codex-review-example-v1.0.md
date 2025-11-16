@@ -8,6 +8,10 @@ context_requirements:
   - Test command output
   - Questions regarding risks and tests
 token_budget_notes: 8k tokens (short diff excerpts only)
+related_prompts:
+  - code-review-codex-v1.0.md
+  - code-review-claude-v1.0.md
+  - build-context-block-v1.0.md
 version_history:
   - v1.0 (2025-02-14): Initial example
 ---

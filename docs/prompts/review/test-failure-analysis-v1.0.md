@@ -8,6 +8,11 @@ context_requirements:
   - Files under suspicion
   - Commands used to reproduce the failure
 token_budget_notes: Keep prompts under 70k tokens. Include only relevant parts of logs or stack traces.
+related_prompts:
+  - fix-bug-analysis-v1.0.md
+  - partial-failure-followup-v1.0.md
+  - code-review-claude-v1.0.md
+  - diagnose-drift-or-hallucination-v1.0.md
 version_history:
   - v1.0 (2025-02-14): Initial template for analyzing failing tests
 ---

@@ -7,6 +7,10 @@ context_requirements:
   - Requirements list for comparison
   - Known tests or validation steps
 token_budget_notes: Keep under 20k tokens; include only the essential requirements and response excerpts.
+related_prompts:
+  - partial-failure-followup-v1.0.md
+  - diagnose-drift-or-hallucination-v1.0.md
+  - code-review-claude-v1.0.md
 version_history:
   - v1.0 (2025-02-14): Initial self-correction template
 ---

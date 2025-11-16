@@ -8,6 +8,11 @@ context_requirements:
   - API contracts or UI specs if applicable
   - Tests or fixtures that must be updated
 token_budget_notes: Prioritize relevance over exhaustiveness. For Sonnet 4.5, you have ~200k tokens available, but staying focused (under 120k) improves responsiveness. Summarize large specs; provide links for optional reading instead of inline dumps.
+related_prompts:
+  - refactor-extract-function-v1.0.md
+  - code-review-claude-v1.0.md
+  - test-failure-analysis-v1.0.md
+  - build-context-block-v1.0.md
 version_history:
   - v1.0 (2025-02-14): Initial feature template
 ---

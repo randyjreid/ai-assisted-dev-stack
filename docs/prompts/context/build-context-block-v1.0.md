@@ -8,6 +8,11 @@ context_requirements:
   - Files involved and their roles
   - Recent commits affecting the same area
 token_budget_notes: Aim for 5k tokens or less; this block should be concise enough to prepend to larger prompts.
+related_prompts:
+  - prepare-large-file-context-v1.0.md
+  - summarize-commits-v1.0.md
+  - add-feature-boilerplate-v1.0.md
+  - refactor-extract-function-v1.0.md
 version_history:
   - v1.0 (2025-02-14): Initial context template
 ---

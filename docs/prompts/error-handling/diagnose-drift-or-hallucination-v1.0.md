@@ -7,6 +7,11 @@ context_requirements:
   - Output that appears incorrect or unrelated
   - Current context block (files, issue link)
 token_budget_notes: Keep to 25k tokens; focus on the mismatched portions rather than the entire prompt.
+related_prompts:
+  - partial-failure-followup-v1.0.md
+  - request-self-correction-v1.0.md
+  - build-context-block-v1.0.md
+  - code-review-codex-v1.0.md
 version_history:
   - v1.0 (2025-02-14): Initial drift diagnosis template
 ---
