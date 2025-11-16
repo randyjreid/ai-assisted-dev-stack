@@ -1,5 +1,7 @@
 # Implementation and Testing Workflow
 
+[← Back to Workflows Overview](../workflows.md)
+
 This playbook tracks how a planned change is built in a branch, validated locally, and prepared for review with AI assistance throughout the process.
 
 ## Goals
@@ -13,3 +15,9 @@ Describe the day to day development sequence, including environment setup, incre
 
 ## How AI Tools Are Used
 Explain how Copilot accelerates coding, Claude Code handles larger edits or refactors, and Codex provides mid-flight validation or alternate perspectives.
+
+---
+
+## Related Playbooks
+- [Design and Architecture Workflow](design-and-architecture.md)
+- [Review and Merge Workflow](review-and-merge.md)

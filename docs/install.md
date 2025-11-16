@@ -2,6 +2,8 @@
 
 This document provides a structured, detailed installation plan for the AI Assisted Dev Stack. It is written as a technical outline intended to guide you through a clean and reproducible installation using Windows, WSL 2, Ubuntu 24.04, Visual Studio Code, GitHub services, and multiple AI assisted CLI tools.
 
+Before starting installation, review [`overview.md`](overview.md) for the high level architecture and [`components.md`](components.md) for detailed descriptions of each tool.
+
 ---
 ## 1. Prerequisites
 
@@ -32,7 +34,7 @@ wsl --install -d Ubuntu-24.04
 
 Reboot if required.
 
-Check WSK distro verion:
+Check WSL distro version:
 ```powershell
 wsl -l -v
 ```
@@ -105,7 +107,6 @@ Download: https://code.visualstudio.com/
 - WSL (or Remote Development pack)
 - GitHub Copilot
 - GitLens
-- Codex – OpenAI’s Coding Agent (optional)
 - Recommended language extensions: Python, C/C++, TypeScript/JavaScript, Markdown, JSON tools.
 
 ### 4.3 Connect VS Code to WSL
@@ -233,7 +234,7 @@ Open Copilot Chat panel.
 ---
 ## 8. Install and Configure Claude Code CLI
 
-Claude Code CLI provides repository-aware reasoning, multi-file editing, and structured development workflows.
+Claude Code CLI provides reasoning with repository awareness, editing across multiple files, and structured development workflows.
 
 ### 8.1 Install Claude Code CLI
 
@@ -287,14 +288,14 @@ cd ~/repos/ai-assisted-dev-stack
 claude
 ```
 
-Claude Code will start an interactive session scoped to that project, enabling multi-file reasoning, edits, tasks, and development workflows.
+Claude Code will start an interactive session scoped to that project, enabling reasoning across files, edits, tasks, and development workflows.
 
 ---
 ## 9. Install and Configure OpenAI Codex CLI
 
-OpenAI's Codex CLI is OpenAI’s coding agent that runs directly in the terminal.  
-It is separate from the general-purpose OpenAI API CLI and is installed using Node.js (via npm), not Python.  
-Codex provides repository-aware reasoning, code generation, analysis, and structured interactive development workflows.
+The OpenAI Codex CLI is a coding agent that runs directly in the terminal.
+It is separate from the general purpose OpenAI API CLI and is installed using Node.js (via npm), not Python.
+Codex provides repository awareness, code generation, analysis, and structured interactive development workflows.
 
 Because Ubuntu 24.04 manages system Node packages tightly, Codex should be installed using **nvm (Node Version Manager)** to avoid permissions issues and system conflicts.
 
@@ -392,88 +393,20 @@ cd ~/repos/ai-assisted-dev-stack
 codex
 ```
 
-Codex will start an interactive session scoped to the current project, enabling file-aware reasoning, code edits, refactoring, explanations, and development assistance.
+Codex will start an interactive session scoped to the current project, enabling reasoning with file awareness, code edits, refactoring, explanations, and development assistance.
 
 ---
-## 10. Optional Future Components
+## 10. Optional and Future Components
 
-This section describes additional tools that may be incorporated into later phases of the AI Assisted Dev Stack.  
-These components are either planned for future integration or under consideration based on their potential value.  
-Each tool is included here because it strengthens reproducibility, automation, or multi-LLM workflows.
+Additional tools and enhancements are planned for later phases, including Docker containers, Python environment managers, GitHub Actions automation, local LLM runtimes, and other productivity tools.
 
-### 10.1 Docker and Dev Containers (Planned)
-Docker Containers provide fully reproducible development environments.  
-A future phase may introduce a Dev Container that pre-installs all required tools (Copilot, Claude, Codex, gh, Node, Python, etc.) so a new machine can be configured instantly.  
-This will eventually become the recommended installation method once the stack stabilizes.
-
-### 10.2 Python Environment Managers (Planned)
-Tools such as `pyenv`, `uv`, or `virtualenv` help avoid conflicts when working across multiple projects.  
-Phase 2 or 3 may introduce a standard project template with:
-- isolated virtual environments  
-- dependency snapshots  
-- standardized tooling (ruff, mypy, pytest)  
-
-This will support more advanced ML/AI development as the stack grows.
-
-### 10.3 Aider and Continue.dev (Under Consideration)
-Aider and Continue.dev enable agent-style, conversational coding directly from within the terminal or IDE.  
-These tools complement Claude Code and Codex by adding:
-- fine-grained file diffs  
-- conversational refactoring  
-- step-by-step patch generation  
-
-They may be added once the core workflow stabilizes and we determine whether they provide measurable value beyond the existing tools.
-
-### 10.4 GitHub Actions (Planned)
-Future phases will introduce CI/CD automation for:
-- linting  
-- testing  
-- documentation generation  
-- automated pull request checks  
-- security scanning  
-
-Adding Actions ensures the dev stack scales into production-grade engineering workflows.
-
-### 10.5 Local LLM Runtimes (Under Consideration)
-Tools such as **Ollama** and **LM Studio** allow running lightweight or open-source models locally for:
-- offline coding assistance  
-- fast prototype loops  
-- model experimentation  
-
-These will be considered in later phases once the primary cloud-based workflow is fully established.
-
-### 10.6 Automated Bootstrap Scripts (Planned)
-Once the environment is proven stable and repeatable, a Phase 2 or Phase 3 goal is to add:
-- a one-command bootstrap script  
-- system health checks  
-- dependency validation  
-- repair utilities  
-
-This will allow rebuilding the entire dev environment on a new machine in minutes.
-
-### 10.7 DevPod (Under Consideration)
-DevPod enables reproducible, cloud-backed or local dev environments and competes with Dev Containers and GitHub Codespaces but works offline.
-
-It may become relevant for multi-machine reproducibility in later phases.
-
-### 10.8 Additional Tools Under Consideration
-These tools are not currently in scope but may be evaluated for potential inclusion:
-
-- **tmux / Zellij** for advanced terminal workflows  
-- **fzf plugins** for navigation, history, and git integration  
-- **Starship prompt** for developer ergonomics  
-- **Neovim** for users who prefer modal editing  
-- **Tree-sitter** for enhanced code navigation  
-- **OpenAI or Anthropic Assistants frameworks** for building agent-like utilities  
-- **Model monitoring tools** such as Langfuse (if future ML projects require them)
-
-Each of these will be added only if they improve reproducibility, maintainability, or productivity without introducing unnecessary complexity.
+For a complete list of planned and potential future components, see [`roadmap.md`](roadmap.md).
 
 ---
 ## 11. Summary
 
-This guide installs a complete, reproducible AI Assisted Dev Stack built on WSL Ubuntu 24.04, Visual Studio Code, GitHub tooling, GitHub Copilot, Claude Code CLI, and the OpenAI Codex CLI.  
-Together, these components create a modern multi-LLM development environment where AI tools assist with coding, analysis, refactoring, repository-level reasoning, and interactive development workflows.
+This guide installs a complete, reproducible AI Assisted Dev Stack built on WSL Ubuntu 24.04, Visual Studio Code, GitHub tooling, GitHub Copilot, Claude Code CLI, and the OpenAI Codex CLI.
+Together, these components create a modern development environment using multiple LLMs where AI tools assist with coding, analysis, refactoring, reasoning at the repository level, and interactive development workflows.
 
-The result is a stable, extensible foundation that can be recreated on any machine, supports both cloud-based and local tools, and enables a structured, professional workflow centered around version control, automation, and AI-augmented engineering.  
-This environment forms the baseline for future phases, including automated bootstrapping, CI/CD integration, Dev Containers, and additional agent-style development tools.
+The result is a stable, extensible foundation that can be recreated on any machine, supports both cloud based and local tools, and enables a structured, professional workflow centered around version control, automation, and engineering with AI.
+This environment forms the baseline for future phases, including automated bootstrapping, CI/CD integration, Dev Containers, and additional development tools in an agent style.

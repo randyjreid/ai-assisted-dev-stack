@@ -1,5 +1,7 @@
 # Continuous Improvement Workflow
 
+[← Back to Workflows Overview](../workflows.md)
+
 This playbook describes how lessons learned from each project cycle are captured, prioritized, and used to evolve workflows, prompts, and tooling.
 
 ## Goals
@@ -13,3 +15,9 @@ Show the cadence for collecting insights, triaging improvements, testing changes
 
 ## How AI Tools Are Used
 Discuss how Claude Code and Codex assist in analyzing retrospectives, proposing refinements, and drafting updated templates while Copilot helps apply smaller adjustments.
+
+---
+
+## Related Playbooks
+- [Documentation Updates Workflow](documentation-updates.md)
+- [Prompting Playbook](prompting-playbook.md)

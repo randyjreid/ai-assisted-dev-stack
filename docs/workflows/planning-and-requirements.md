@@ -1,5 +1,7 @@
 # Planning and Requirements Workflow
 
+[← Back to Workflows Overview](../workflows.md)
+
 This playbook explains how raw ideas are shaped into scoped work items with clear requirements before design or implementation begins.
 
 ## Goals
@@ -13,3 +15,9 @@ Lay out the ordered activities from capturing the idea through creating a struct
 
 ## How AI Tools Are Used
 Detail how Claude Code and Codex help brainstorm, outline tasks, and validate requirement coverage while Copilot supports quick experiments when needed.
+
+---
+
+## Related Playbooks
+- [Prompting Playbook](prompting-playbook.md)
+- [Design and Architecture Workflow](design-and-architecture.md)

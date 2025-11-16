@@ -1,9 +1,9 @@
-# AI-Assisted Dev Stack
+# AI Assisted Dev Stack
 
-A complete, evolving AI-assisted development environment for modern software engineering.  
-This repository documents a reproducible setup for building software using a multi-LLM workflow that integrates Claude Code CLI, OpenAI/Codex CLI, GitHub Copilot, GitHub CLI, WSL Ubuntu, and Visual Studio Code.
+A complete, evolving development environment for modern software engineering that uses AI assistance.
+This repository documents a reproducible setup for building software using multiple LLM tools that integrate Claude Code CLI, OpenAI Codex CLI, GitHub Copilot, GitHub CLI, WSL Ubuntu, and Visual Studio Code.
 
-The goal is to maintain a stable, well-documented baseline that I can rebuild anytime, extend as new tools arrive, and share publicly to help others adopt AI-augmented development workflows.
+The goal is to maintain a stable, well documented baseline that I can rebuild anytime, extend as new tools arrive, and share publicly to help others adopt development workflows that use AI.
 
 A dedicated [Workflows guide](docs/workflows.md) now explains how ideas move from initial prompts through merged changes and how each AI tool supports that flow.
 
@@ -11,14 +11,14 @@ A dedicated [Workflows guide](docs/workflows.md) now explains how ideas move fro
 
 ## ⚡️ Why This Exists
 
-AI-assisted development is becoming the standard approach to writing software.  
+Development that uses AI assistance is becoming the standard approach to writing software.
 Claude, Copilot, Codex, GitHub CLI, and other tools dramatically improve productivity, but only when they are combined into a coherent, repeatable environment.
 
 This repository serves as:
 
-- A reproducible framework for rebuilding my development environment as needed.  
-- A living reference documenting tools, workflows, and updates.  
-- A public blueprint for anyone interested in modern AI-assisted engineering.  
+- A reproducible framework for rebuilding my development environment as needed.
+- A living reference documenting tools, workflows, and updates.
+- A public blueprint for anyone interested in modern engineering with AI tools.  
 
 ---
 
@@ -26,9 +26,9 @@ This repository serves as:
 
 - WSL 2 Ubuntu 24.04 development environment  
 - Visual Studio Code with curated extensions and WSL integration  
-- GitHub CLI (`gh`) for streamlined GitHub workflows  
-- Claude Code CLI for feature implementation and repo-wide reasoning  
-- OpenAI/Codex CLI for review, validation, and automation  
+- GitHub CLI (`gh`) for streamlined GitHub workflows
+- Claude Code CLI for feature implementation and repository wide reasoning
+- OpenAI Codex CLI for review, validation, and automation
 - GitHub Copilot for inline coding, autocompletion, and refactors  
 - Scriptable setup (future phases)  
 - Documented workflows for feature development, PR reviews, and testing  
@@ -49,11 +49,8 @@ ai-assisted-dev-stack/
 │   ├── update-log.md
 │   └── roadmap.md
 │
-├── scripts/            # Setup, verification, and automation scripts (future phases)
-│   ├── bootstrap_wsl.sh
-│   ├── install_core_tools.sh
-│   ├── install_ai_tools.sh
-│   └── verify_stack.sh
+├── scripts/            # Setup, verification, and automation scripts (planned for a future phase)
+│   └── README.md
 │
 ├── .vscode/            # Recommended VS Code extensions and settings
 │   ├── extensions.json
@@ -67,13 +64,13 @@ ai-assisted-dev-stack/
 └── README.md           # You are here
 ```
 
-All files begin as placeholders and will be expanded in upcoming phases.
+Core documentation is now in place. Additional files and automation scripts will be added in upcoming phases.
 
 ---
 
 ## 🚀 Getting Started
 
-This repository is currently in **Phase 0**: scaffolding and documentation structure.
+**Phase 0** (repository scaffolding) is complete. **Phase 1** (core stack documentation) is currently in progress.
 
 ### Prerequisites
 - Windows 10/11 with WSL 2  
@@ -104,7 +101,7 @@ Documentation for installation and usage lives in:
 The following documents will be expanded as the stack evolves:
 
 - [x] **overview.md** – Purpose, philosophy, system architecture  
-- [x] **install.md** – Step-by-step installation instructions  
+- [x] **install.md** – Detailed installation instructions  
 - [x] **components.md** – Detailed breakdown of each tool  
 - [x] **workflows.md** – Lifecycle guidance from idea to merged change with links to detailed playbooks  
 - [ ] **update-log.md** – Version history of the stack  
@@ -116,18 +113,18 @@ Detailed workflow playbooks will live under `docs/workflows/` as each stage is e
 
 ## 🛠 Roadmap
 
-### Phase 0 – Repo Scaffolding (Current)
-- [x] Create initial directory and documentation structure  
-- [x] Add README and base files  
-- [x] Add Dependabot configuration  
+### Phase 0 – Repo Scaffolding (Complete)
+- [x] Create initial directory and documentation structure
+- [x] Add README and base files
+- [x] Add Dependabot configuration
 
-### Phase 1 – Core Stack Documentation
-- [ ] WSL setup  
-- [ ] VS Code setup  
-- [ ] GitHub CLI  
-- [ ] Claude Code CLI  
-- [ ] OpenAI CLI (Codex)  
-- [ ] GitHub Copilot  
+### Phase 1 – Core Stack Documentation (In Progress)
+- [x] WSL setup
+- [x] VS Code setup
+- [x] GitHub CLI
+- [x] Claude Code CLI
+- [x] OpenAI Codex CLI
+- [x] GitHub Copilot  
 
 ### Phase 2 – Setup Scripts
 - [ ] WSL bootstrap script  
@@ -136,27 +133,27 @@ Detailed workflow playbooks will live under `docs/workflows/` as each stage is e
 - [ ] Stack verification script  
 
 ### Phase 3 – Workflow Documentation
-- [ ] Branching strategy  
-- [ ] AI-assisted feature implementation  
-- [ ] AI-driven PR review workflows  
+- [ ] Branching strategy
+- [ ] Feature implementation with AI assistance
+- [ ] Pull request review workflows using AI
 - [ ] Testing and validation  
 
-### Phase 4 – Public Write-Ups
+### Phase 4 – Public Documentation
 - [ ] Publish LinkedIn article  
-- [ ] Publish Medium technical deep-dive  
+- [ ] Publish Medium technical deep dive  
 - [ ] Invite community feedback  
 
 ### Phase 5 – Evolution
-- [ ] Local LLM support (Ollama, LM Studio)  
-- [ ] Agent workflows  
-- [ ] Self-hosted GitHub Actions runners  
-- [ ] Devcontainer-based environments  
+- [ ] Local LLM support (Ollama, LM Studio)
+- [ ] Agent workflows
+- [ ] Self hosted GitHub Actions runners
+- [ ] Devcontainer based environments  
 
 ---
 
 ## 🤝 Contributing
 
-Suggestions, improvements, and ideas are welcome as AI-assisted development continues to evolve.  
+Suggestions, improvements, and ideas are welcome as development with AI assistance continues to evolve.  
 Issues and pull requests can be opened at any time.
 
 ---

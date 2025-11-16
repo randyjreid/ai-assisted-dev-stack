@@ -15,6 +15,8 @@ Summarize when Copilot, Claude Code, Codex, GitHub CLI, and other components are
 
 ## 2. Prompting and Interaction Patterns
 
+For detailed guidance, see [Prompting Playbook](workflows/prompting-playbook.md).
+
 ### Principles of prompt use in this stack
 List the values that drive good prompting such as clarity, transparency, and traceability of AI sourced output.
 
@@ -31,6 +33,8 @@ Call out the prompts used to request independent reviews, explorations, or autom
 Note how inline Copilot suggestions complement longer prompt driven exchanges without duplicating effort.
 
 ## 3. Planning and Requirements Workflow
+
+For detailed guidance, see [Planning and Requirements Workflow](workflows/planning-and-requirements.md).
 
 ### Starting from an idea
 Explain how raw ideas enter the workflow, who captures them, and where they are tracked.
@@ -49,6 +53,8 @@ State the exit criteria for planning so teams know when to move into design.
 
 ## 4. Design and Architecture Workflow
 
+For detailed guidance, see [Design and Architecture Workflow](workflows/design-and-architecture.md).
+
 ### When to create or update design artifacts
 Clarify the triggers for writing or refreshing design documents.
 
@@ -65,6 +71,8 @@ Describe the checks, peer reviews, or spikes required before coding starts.
 List the signals that the design is stable enough for implementation.
 
 ## 5. Implementation Workflow
+
+For detailed guidance, see [Implementation and Testing Workflow](workflows/implementation-and-testing.md).
 
 ### Branch creation and task setup
 Detail how branches map to tasks and how gh or git commands are used to prepare the workspace.
@@ -103,6 +111,8 @@ Note the plans for CI adoption and how future automation will hook into this wor
 
 ## 7. Peer Review and AI Assisted Review
 
+For detailed guidance, see [Review and Merge Workflow](workflows/review-and-merge.md).
+
 ### Creating a pull request
 Describe the gh commands, templates, and metadata expected when opening a PR.
 
@@ -119,6 +129,8 @@ Clarify how human reviewers engage with AI findings and when manual edits are re
 State the combination of approvals, checks, and responses needed before merging.
 
 ## 8. Documentation Update Workflow
+
+For detailed guidance, see [Documentation Updates Workflow](workflows/documentation-updates.md).
 
 ### Deciding what documentation to update
 List the cues used to determine when a change requires doc updates.
@@ -137,6 +149,8 @@ Provide the definition of done for doc updates before merge.
 
 ## 9. Merge and Post Merge Validation
 
+For detailed guidance, see [Merge and Validation Workflow](workflows/merge-and-validation.md).
+
 ### Pre merge checklist
 Summarize the checklist items verified before pressing merge.
 
@@ -150,6 +164,8 @@ Explain the quick validations run immediately after merge to confirm stability.
 Describe how larger tests, demos, or manual validation round out the process.
 
 ## 10. Continuous Improvement of Workflows
+
+For detailed guidance, see [Continuous Improvement Workflow](workflows/continuous-improvement.md).
 
 ### Capturing lessons learned
 Show how retro notes, incident reviews, or daily learnings are collected.

@@ -1,6 +1,6 @@
 # Overview
 
-The AI Assisted Dev Stack is a reproducible and fully documented development environment designed to integrate multiple LLM powered tools into a cohesive and modern engineering workflow. It captures everything I use, from WSL and Visual Studio Code to GitHub CLI, GitHub Copilot, Claude Code, and Codex, and distills the real world lessons learned as I refine how I work. This stack provides a stable foundation that I can recreate on any machine while remaining flexible enough to evolve as new tools and practices emerge.
+The AI Assisted Dev Stack is a reproducible and fully documented development environment designed to integrate multiple LLM powered tools into a cohesive, modern engineering workflow. It captures everything I use, from WSL and Visual Studio Code to GitHub CLI, GitHub Copilot, Claude Code, and Codex, and distills the real world lessons learned as I refine how I work. This stack provides a stable foundation that I can recreate on any machine while remaining flexible enough to evolve as new tools and practices emerge.
 
 ## 1. Purpose of This Project
 
@@ -10,7 +10,7 @@ The documentation created in Phase 1 will later support installation scripts, en
 
 ## 2. Philosophy and Motivation
 
-My approach to AI assisted development centers on using large language models to augment, not replace, my engineering judgment. In this context, AI assisted development means leveraging LLMs to generate code, analyze designs, identify edge cases, review changes, and automate routine tasks, while I remain responsible for architectural intent and quality.
+My approach to development with AI centers on using large language models to augment, not replace, my engineering judgment. In this context, using AI in development means leveraging LLMs to generate code, analyze designs, identify edge cases, review changes, and automate routine tasks, while I remain responsible for architectural intent and quality.
 
 Everything in this stack is grounded in practical use. As I work with these tools daily, I refine the workflow, adopt what works, discard what does not, and update the documentation accordingly. This iterative process ensures the stack remains centered on real world effectiveness rather than theoretical best practices.
 
@@ -26,7 +26,7 @@ Windows 10/11
     ├── AI tooling:
     │     ├── GitHub Copilot
     │     ├── Claude Code CLI
-    │     └── OpenAI / Codex CLI
+    │     └── OpenAI Codex CLI
     ├── Visual Studio Code (WSL integrated)
     └── Future automation and scripts
 ```
@@ -64,7 +64,7 @@ Inline, context aware code completion that accelerates refactors, patterns, expl
 **Claude Code CLI**  
 My primary LLM development assistant for multi file reasoning, structured implementations, refactors, and repository level analysis.
 
-**OpenAI CLI (Codex)**  
+**OpenAI Codex CLI**
 A secondary reviewer that offers alternative reasoning, deeper analysis, and a different perspective on code quality and design.
 
 **Supporting CLI Tools**  
@@ -74,9 +74,11 @@ Together, these components form a modular and extensible environment designed fo
 
 ## 6. How the Tools Work Together
 
-Each AI tool plays a distinct role in the workflow. GitHub Copilot operates inside the editor to accelerate small refinements and micro level coding through inline suggestions and pattern generation. Claude Code handles complex tasks that require global awareness of the repository, including feature implementations, multi file refactoring, and architectural analysis. The OpenAI CLI, Codex, functions as an independent reviewer that provides critiques, alternative solutions, and additional insights.
+Each AI tool plays a distinct role in the workflow. GitHub Copilot operates inside the editor to accelerate small refinements and coding tasks through inline suggestions and pattern generation. Claude Code handles complex tasks that require global awareness of the repository, including feature implementations, refactoring across multiple files, and architectural analysis. Codex functions as an independent reviewer that provides critiques, alternative solutions, and additional insights.
 
-GitHub CLI connects these workflows to GitHub, managing branches, pull requests, reviews, and repository interactions directly from the terminal. Visual Studio Code acts as the orchestration layer where all tools come together. This multi agent approach blends automation with human intent, ensuring I maintain full ownership of the code while benefiting from multiple AI perspectives.
+GitHub CLI connects these workflows to GitHub, managing branches, pull requests, reviews, and repository interactions directly from the terminal. Visual Studio Code acts as the orchestration layer where all tools come together. This approach using multiple agents blends automation with human intent, ensuring I maintain full ownership of the code while benefiting from multiple AI perspectives.
+
+For a detailed look at how these tools work together across the development lifecycle, see [`workflows.md`](workflows.md).
 
 ## 7. Design Principles
 
@@ -101,11 +103,11 @@ Improvements come directly from practical, real world use rather than theory.
 
 Several tools may be added in later phases as the stack evolves:
 
-- Aider for iterative LLM coding  
-- Continue.dev for agent driven automation within Visual Studio Code  
-- Docker or devcontainers for portable development environments  
-- Local LLM runtimes such as Ollama or LM Studio for offline development  
-- AI agent workflows and self hosted GitHub runners  
+- Aider for iterative LLM coding
+- Continue.dev for automation driven by agents within Visual Studio Code
+- Docker or devcontainers for portable development environments
+- Local LLM runtimes such as Ollama or LM Studio for offline development
+- Workflows with AI agents and self hosted GitHub runners  
 
 Each addition will be evaluated for stability, usefulness, and its ability to improve the overall workflow.
 

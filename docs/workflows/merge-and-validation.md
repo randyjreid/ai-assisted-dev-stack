@@ -1,5 +1,7 @@
 # Merge and Validation Workflow
 
+[← Back to Workflows Overview](../workflows.md)
+
 This playbook captures the checks performed before merging, the execution of the merge itself, and the validation that happens immediately afterward.
 
 ## Goals
@@ -13,3 +15,9 @@ Detail the sequence from final review sign-off through merge execution, post-mer
 
 ## How AI Tools Are Used
 Outline how Claude Code helps verify readiness, Codex double-checks diff integrity, and Copilot assists with quick fixes found during validation.
+
+---
+
+## Related Playbooks
+- [Review and Merge Workflow](review-and-merge.md)
+- [Documentation Updates Workflow](documentation-updates.md)

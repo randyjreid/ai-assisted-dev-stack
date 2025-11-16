@@ -2,7 +2,9 @@
 
 ## Overview
 
-This document describes each component that forms the AI Assisted Dev Stack and explains the role it plays within the overall workflow. Every tool was selected because it contributes directly to a stable and efficient development environment. Some components provide the operating foundation, others enhance productivity through intelligent automation, and several deliver the AI assisted capabilities that define this stack. Understanding why each tool is included and how it fits into the broader system ensures that the environment remains easy to rebuild, easy to extend, and grounded in real world use.
+This document describes each component that forms the AI Assisted Dev Stack and explains the role it plays within the overall workflow. For context on the high level architecture and how these components fit together, see [`overview.md`](overview.md).
+
+ Every tool was selected because it contributes directly to a stable and efficient development environment. Some components provide the operating foundation, others enhance productivity through intelligent automation, and several deliver the AI assisted capabilities that define this stack. Understanding why each tool is included and how it fits into the broader system ensures that the environment remains easy to rebuild, easy to extend, and grounded in real world use.
 
 ## WSL Ubuntu 24.04
 
@@ -36,13 +38,13 @@ Because Copilot works as I type, it helps maintain momentum during feature devel
 
 ## Claude Code CLI
 
-Claude Code CLI is the primary large language model tool for multi file and structured development tasks. It is able to understand the entire repository, analyze multiple files simultaneously, and produce coordinated changes that maintain consistency across the project. This makes it ideal for feature implementations, large refactors, documentation updates, and other changes that benefit from broader context.
+Claude Code CLI is the primary large language model tool for structured development tasks that span multiple files. It is able to understand the entire repository, analyze multiple files simultaneously, and produce coordinated changes that maintain consistency across the project. This makes it ideal for feature implementations, large refactors, documentation updates, and other changes that benefit from broader context.
 
 Claude Code is especially effective when global reasoning is required. It can read documentation, identify patterns in the codebase, and generate solutions that match established conventions. Because it operates at a higher level than Copilot, it often handles the tasks that require deliberate planning and structural understanding. After generating changes, I can review the output and use GitHub CLI to create a pull request for further analysis.
 
-## OpenAI CLI (Codex)
+## OpenAI Codex CLI
 
-The OpenAI CLI, referred to here as Codex, acts as an independent reviewer and analysis partner. It provides a different perspective from both Copilot and Claude Code, which makes it valuable when evaluating pull requests or checking architectural decisions. Codex helps identify potential issues, suggests improvements, and highlights edge cases or questions that may not be immediately obvious.
+The OpenAI Codex CLI acts as an independent reviewer and analysis partner. It provides a different perspective from both Copilot and Claude Code, which makes it valuable when evaluating pull requests or checking architectural decisions. Codex helps identify potential issues, suggests improvements, and highlights edge cases or questions that may not be immediately obvious.
 
 Codex is particularly helpful during the review phase. After Claude Code creates an implementation, I can use Codex to examine the changes, confirm the design approach, and strengthen confidence before merging the pull request. By combining Codex with GitHub CLI, the entire review process stays inside the WSL environment and remains consistent with the rest of the workflow.
 
@@ -55,3 +57,5 @@ While each of these utilities is simple on its own, together they provide the st
 ## Summary
 
 The components described in this document work together to create a cohesive, reliable, and extensible development environment. Each tool serves a distinct purpose, and the combination of Linux based tooling, GitHub centric workflows, Visual Studio Code, and AI models forms a powerful foundation for modern software development. This document will continue to evolve as the stack grows and as new tools become valuable in future phases.
+
+For step by step installation instructions for these components, see [`install.md`](install.md).
