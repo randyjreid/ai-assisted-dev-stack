@@ -7,7 +7,7 @@ context_requirements:
   - Target directories and existing modules to integrate with
   - API contracts or UI specs if applicable
   - Tests or fixtures that must be updated
-token_budget_notes: Keep prompts under 110k tokens. Summarize large specs; provide links for optional reading instead of inline dumps.
+token_budget_notes: Prioritize relevance over exhaustiveness. For Sonnet 4.5, you have ~200k tokens available, but staying focused (under 120k) improves responsiveness. Summarize large specs; provide links for optional reading instead of inline dumps.
 version_history:
   - v1.0 (2025-02-14): Initial feature template
 ---
@@ -41,6 +41,8 @@ Constraints:
 - Do not introduce new dependencies without approval
 - Keep public APIs backward compatible unless otherwise stated
 - If design questions arise, stop and list the open questions instead of guessing
+- Do not include credentials, API keys, tokens, or personally identifiable information
+- Sanitize logs and stack traces before including in prompts or outputs
 
 Verification:
 - Explain which unit/integration tests should be run
@@ -83,6 +85,8 @@ Requirements:
 Constraints:
 - Keep response formats unchanged
 - Only edit files listed above
+- Do not include credentials, API keys, tokens, or personally identifiable information
+- Sanitize logs and stack traces before including in prompts or outputs
 
 Verification:
 - Run npm test -- tests/api/keys.test.js

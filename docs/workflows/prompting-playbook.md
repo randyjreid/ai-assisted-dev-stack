@@ -12,7 +12,7 @@ Prompting discipline is the control surface for AI assisted work. Structured pro
 ### 2.2 Principles of Effective Prompting
 **Clarity.** Each prompt states the scope, files in play, intent, acceptance criteria, and any guardrails. Explicit instructions such as “Edit `src/api/payments.js` only” or “Return diffs plus a summary” eliminate guesswork. Vague directives are rewritten before they reach the tools.
 
-**Reproducibility.** Prompts reference the branch (`feature/add-payment-validator`), commit hash when relevant, and any prerequisite outputs. Even though model responses remain non deterministic, another developer can rerun the scenario by reusing the same input conditions.
+**Reproducibility.** Prompts reference the branch (`feature/add-payment-validator`), commit hash when relevant, and any prerequisite outputs. Even though model responses remain non-deterministic and will vary across runs, another developer can reproduce the process by reusing the same input conditions (branch, context, constraints). Reproducibility comes from the structured approach and human validation at each stage, not from identical AI outputs.
 
 **Transparency.** Prompts link to the initiating artifact (GitHub issue, PR, design note) and explain why the work matters. Reviewers can follow those links to confirm context.
 
@@ -28,7 +28,7 @@ Context is assembled before any tool is invoked. The developer collects:
 - Notes from design docs or architecture diagrams
 - The latest entry from the prompt log for continuity
 
-**Prompt logs** act as the permanent record. Each entry contains the prompt text, tool used, timestamp, branch, files touched, and a short summary of the result. Logs usually live in the corresponding GitHub issue or PR comment thread; for larger efforts they may also be copied into `docs/workflows/prompts/logs/` for long-term reference. Prompt libraries, by contrast, hold reusable templates and live under `docs/workflows/prompts/patterns/`.
+**Prompt logs** act as the permanent record. Each entry contains the prompt text, tool used, timestamp, branch, files touched, and a short summary of the result. Logs usually live in the corresponding GitHub issue or PR comment thread; for larger efforts they may also be copied into `docs/prompts/logs/` for long-term reference. Prompt libraries, by contrast, hold reusable templates and live under `docs/prompts/`, organized by workflow stage (implementation/, review/, context/, error-handling/, examples/).
 
 Context can be reused when the task is still active and the code base has not drifted. Reset the context when:
 - A different issue or feature is being addressed
@@ -36,7 +36,7 @@ Context can be reused when the task is still active and the code base has not dr
 - The AI output references unstated files or assumptions (context drift)
 - Token usage becomes excessive
 
-**Token guidance.** Claude Code supports large contexts, but prompts should still stay under 150k tokens for responsiveness. Codex works best under 15k tokens. Trim context by summarizing large files, pointing to commit hashes instead of pasting entire diffs, or delegating rarely needed details to follow-up prompts.
+**Token guidance.** Claude Code supports large contexts (200k tokens for Sonnet 4.5 as of January 2025). For best responsiveness, prioritize relevance and recency over exhaustiveness. Modern OpenAI models support 128k+ tokens; consult current model documentation for specific limits. Trim context by summarizing large files, pointing to commit hashes instead of pasting entire diffs, or delegating rarely needed details to follow-up prompts. See Section 2.3.1 for detailed context prioritization techniques.
 
 ### 2.4 Claude Code Prompt Patterns
 Claude Code excels at structured, multi file changes. Every prompt follows this template:
@@ -123,18 +123,106 @@ Prompts follow a consistent lifecycle:
 4. **Evaluate** – Validate the output with tests, linting, and manual review. If results are incomplete, branch the prompt history and iterate with refined instructions.
 5. **Archive** – Store the final prompt and outcome in the prompt log, linking to summary commits or PRs. Logs should include timestamps, tool versions, and follow-up work items.
 
-Prompt versioning lives alongside the templates in `docs/workflows/prompts/patterns/`. Each template has a version header (`Version: 1.2 – 2025-02-10 – Added security section`). When a template changes, update the history block so teams can revert to prior versions if needed.
+Prompt versioning lives alongside the templates in `docs/prompts/`. Each template has a version header (`Version: 1.2 – 2025-02-10 – Added security section`). When a template changes, update the history block so teams can revert to prior versions if needed.
 
-### 2.8 Error Handling
-When a response is ambiguous, ask the tool to restate its understanding or list the assumptions it made before proceeding. If Claude edits unintended files, instruct it to explain why and then remind it of the allowed file list. Partial failures are recorded in the prompt log with notes about the fix, so future prompts can adapt. Escalate to a different tool when:
-- Multiple retries produce conflicting output
-- The problem shifts from implementation to analysis (switch Claude → Codex)
-- The change is too granular for AI assistance (fall back to manual edits)
+### 2.8 Error Handling and Recovery
 
-Self-correction prompts are part of the toolkit:
+When AI responses fail to meet requirements or produce unexpected results, follow a systematic error handling approach rather than repeatedly retrying the same prompt.
+
+#### 2.8.1 Common Failure Modes
+
+**Ambiguous responses**: When a response lacks specificity or seems uncertain, ask the tool to:
+- Restate its understanding of the task
+- List the assumptions it made
+- Identify which parts of the response are confident vs. uncertain
+
+**Unintended edits**: If Claude or Codex modifies files outside the allowed scope:
+- Instruct it to explain its reasoning for those edits
+- Restate the explicit file list constraints
+- If drift continues, use the `diagnose-drift-or-hallucination` template
+
+**Partial failures**: When some requirements are met but others are incomplete:
+- Record completed tasks in the prompt log
+- Use the `partial-failure-followup` template to address outstanding items
+- Do not restart from scratch unless the partial result is fundamentally flawed
+
+**Hallucinations**: When the AI references nonexistent files, features, or assumptions:
+- Use the `diagnose-drift-or-hallucination` template to understand the source
+- Reset context if drift is detected
+- Rebuild context from latest source of truth (branch, commit, docs)
+
+#### 2.8.2 Retry Strategy
+
+**First attempt fails**:
+1. Review the prompt for ambiguity or missing context
+2. Check if constraints were clear and explicit
+3. Refine and retry once
+
+**Second attempt fails**:
+1. Use self-correction prompt (see below)
+2. If still unclear, switch to analysis mode (ask for plan, not implementation)
+3. Consider breaking task into smaller prompts
+
+**Third attempt fails**:
+- Escalate to different tool or human review
+- Do not retry more than 3 times without changing approach
+
+#### 2.8.3 Escalation Criteria
+
+Escalate to a different tool when:
+- **Multiple retries produce conflicting output** → Try Codex for second opinion
+- **Problem shifts from implementation to analysis** → Switch Claude → Codex
+- **Change is too granular for AI assistance** → Fall back to manual edits
+- **Safety concerns arise** → Stop and consult security review
+
+Escalate to human review when:
+- AI consistently misunderstands requirements after 3 attempts
+- Output quality degrades across iterations (sign of context pollution)
+- Task involves sensitive architecture decisions beyond AI scope
+- Regulatory, security, or legal considerations are present
+
+#### 2.8.4 Self-Correction Prompts
+
+Self-correction prompts are part of the standard toolkit. Use before finalizing any significant change:
+
+```markdown
+Before finalizing, review your proposal against the requirements above. For each requirement:
+1. State whether it is fully satisfied (with evidence from your output)
+2. Identify any requirements that are partially met or missing
+3. List assumptions you made that need confirmation
+
+If any requirements are not fully met, state what remains and stop. Do not proceed with implementation until gaps are addressed.
 ```
-Before finalizing, review your proposal against the requirements above. List any gaps or assumptions that could invalidate the solution. If the requirements are not fully met, state what remains and stop.
-```
+
+This meta-cognitive check catches issues before they reach code review.
+
+#### 2.8.5 Logging Failures
+
+Failed prompts are as valuable as successful ones for continuous improvement. Log failures with:
+- The prompt that failed
+- The problematic response or behavior
+- Root cause analysis (ambiguous prompt, insufficient context, wrong tool, etc.)
+- What approach succeeded instead
+
+Store failure logs in the same location as success logs (GitHub issue comments or `docs/prompts/logs/`). Tag with `failure` or `retry` for easy filtering.
+
+#### 2.8.6 Security Note
+
+Prompts and their archived outputs must never contain credentials, API keys, or personally identifiable information. Before including logs, test output, or error messages in prompts:
+- **Sanitize**: Remove credentials, tokens, PII, internal paths
+- **Validate**: Double-check that no sensitive data remains
+- **Flag**: If sensitive data appears in AI output, edit or delete the prompt log immediately and note the incident
+
+Refer to the safety constraints in Section 2.2 and the prompt templates in `docs/prompts/implementation/` for specific guidance.
+
+#### 2.8.7 Error Handling Templates
+
+The prompt library provides three templates for error handling workflows:
+- `error-handling/partial-failure-followup-v1.0.md` - Address incomplete implementations
+- `error-handling/diagnose-drift-or-hallucination-v1.0.md` - Debug unexpected references
+- `error-handling/request-self-correction-v1.0.md` - Validate AI output before proceeding
+
+Consult these templates when standard prompts fail or produce unexpected results.
 
 ### 2.9 Playbook Integration
 This playbook is the companion to Section 2 in `docs/workflows.md`. That document explains why prompting discipline matters; this file shows how to execute it. Other workflow playbooks (planning, implementation, testing, review) reference specific sections here when they require prompt templates or context handling procedures. As new patterns emerge, update the appropriate subsection here and link back from the corresponding workflow stage so the entire stack stays synchronized.
